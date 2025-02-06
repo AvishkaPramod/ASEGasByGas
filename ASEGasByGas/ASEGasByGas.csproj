@@ -13,7 +13,6 @@
   <ItemGroup>
     <ProjectReference Include="..\gasbygas.lb.business\gasbygas.lb.business.csproj" />
     <ProjectReference Include="..\gasbygas.lb.contracts\gasbygas.lb.contracts.csproj" />
-    <ProjectReference Include="..\gasbygas.lb.data\gasbygas.lb.data.csproj" />
     <ProjectReference Include="..\gasbygas.lb.dbcontex.tables\gasbygas.lb.dbcontex.tables\gasbygas.lb.dbcontex.tables.csproj" />
     <ProjectReference Include="..\gasbygas.lb.entities\gasbygas.lb.entities.csproj" />
     <ProjectReference Include="..\gasbygas.lb.shared\gasbygas.lb.shared.csproj" />

@@ -15,7 +15,23 @@
    "T4TemplatePath": null,
    "Tables": [
       {
+         "Name": "certificatevalidation",
+         "ObjectType": 0
+      },
+      {
          "Name": "customer",
+         "ObjectType": 0
+      },
+      {
+         "Name": "gasstock",
+         "ObjectType": 0
+      },
+      {
+         "Name": "outletstock",
+         "ObjectType": 0
+      },
+      {
+         "Name": "user",
          "ObjectType": 0
       }
    ],

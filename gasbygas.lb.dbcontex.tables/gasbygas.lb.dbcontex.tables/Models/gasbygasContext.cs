@@ -18,12 +18,43 @@ namespace gasbygas.lb.dbcontex.tables.Models
         {
         }
 
+        public virtual DbSet<certificatevalidation> certificatevalidations { get; set; }
         public virtual DbSet<customer> customers { get; set; }
+        public virtual DbSet<gasstock> gasstocks { get; set; }
+        public virtual DbSet<outletstock> outletstocks { get; set; }
+        public virtual DbSet<user> users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.UseCollation("utf8mb4_0900_ai_ci")
                 .HasCharSet("utf8mb4");
+
+            modelBuilder.Entity<certificatevalidation>(entity =>
+            {
+                entity.ToTable("certificatevalidation");
+
+                entity.HasIndex(e => e.CustomerID, "CustomerID");
+
+                entity.HasIndex(e => e.UserID, "UserID");
+
+                entity.Property(e => e.CertificateStatus).HasMaxLength(50);
+
+                entity.Property(e => e.ValidationDate).HasMaxLength(50);
+
+                entity.Property(e => e.ValidationStatus).HasMaxLength(50);
+
+                entity.HasOne(d => d.Customer)
+                    .WithMany(p => p.certificatevalidations)
+                    .HasForeignKey(d => d.CustomerID)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("certificatevalidation_ibfk_2");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.certificatevalidations)
+                    .HasForeignKey(d => d.UserID)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("certificatevalidation_ibfk_1");
+            });
 
             modelBuilder.Entity<customer>(entity =>
             {
@@ -59,6 +90,73 @@ namespace gasbygas.lb.dbcontex.tables.Models
                 entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
 
                 entity.Property(e => e.UserName).HasMaxLength(45);
+            });
+
+            modelBuilder.Entity<gasstock>(entity =>
+            {
+                entity.HasKey(e => e.StockID)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("gasstock");
+
+                entity.HasIndex(e => e.UserID, "FK_gasStock_user");
+
+                entity.Property(e => e.GasType)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.StockStatus).HasMaxLength(50);
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.gasstocks)
+                    .HasForeignKey(d => d.UserID)
+                    .HasConstraintName("FK_gasStock_user");
+            });
+
+            modelBuilder.Entity<outletstock>(entity =>
+            {
+                entity.ToTable("outletstock");
+
+                entity.Property(e => e.GasType).HasMaxLength(50);
+
+                entity.Property(e => e.ReceivingDate).HasColumnType("datetime");
+            });
+
+            modelBuilder.Entity<user>(entity =>
+            {
+                entity.ToTable("user");
+
+                entity.HasIndex(e => e.OutletID, "FK_user_Outlet");
+
+                entity.Property(e => e.Address).HasMaxLength(50);
+
+                entity.Property(e => e.CreatedBy)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Email).HasMaxLength(50);
+
+                entity.Property(e => e.FirstName).HasMaxLength(50);
+
+                entity.Property(e => e.LastLoginDate).HasColumnType("datetime");
+
+                entity.Property(e => e.LastName).HasMaxLength(50);
+
+                entity.Property(e => e.Password).HasMaxLength(50);
+
+                entity.Property(e => e.Status).HasMaxLength(1);
+
+                entity.Property(e => e.UpdatedBy)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.UserName).HasMaxLength(50);
+
+                entity.Property(e => e.UserRole).HasMaxLength(50);
             });
 
             OnModelCreatingPartial(modelBuilder);

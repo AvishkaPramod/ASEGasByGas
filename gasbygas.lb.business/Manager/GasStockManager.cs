@@ -1,7 +1,10 @@
-﻿using gasbygas.lb.business.Wrappers;
+﻿using gasbygas.lb.business.Mappers;
+using gasbygas.lb.business.Wrappers;
 using gasbygas.lb.contracts.Manager;
 using gasbygas.lb.contracts.Repositories;
+using gasbygas.lb.data.Repositories;
 using gasbygas.lb.entities.Customer;
+using gasbygas.lb.entities.GasStock;
 using gasbygas.lb.shared.Contracts;
 using gasbygas.lb.shared.Models;
 using Microsoft.Extensions.Logging;
@@ -13,17 +16,17 @@ using System.Threading.Tasks;
 
 namespace gasbygas.lb.business.Manager
 {
-    public class CustomerManager: ICustomerManager
+    public class GasStockManager: IGasStockManager
     {
         /// <summary>
         /// ILogger for error logs
         /// </summary>
-        private readonly ILogger<CustomerManager> _logger;
+        private readonly ILogger<GasStockManager> _logger;
 
         /// <summary>
         /// Banks repository
         /// </summary>
-        private readonly ICustomerRepositories _customerRepository;
+        private readonly IGasStockRepositories _gasstockRepository;
 
         /// <summary>
         /// The service response error mapper
@@ -33,33 +36,33 @@ namespace gasbygas.lb.business.Manager
         /// <summary>
         /// The Banks save mapper
         /// </summary>
-        private readonly IMapper<CustomerRequestWrapper, CustomerSaveRequest> _customerSaveRequestMapper;
+        private readonly IMapper<GasStockRequestWrapper, GasStockSaveRequest> _gasstockSaveRequestMapper;
 
         private readonly IMapper<Object, ResponseBase> _serviceResponseMapper;
 
         //Constructor
-        public CustomerManager(ILogger <CustomerManager> logger,
-            ICustomerRepositories customerRepositories,
+        public GasStockManager(ILogger<GasStockManager> logger,
+            IGasStockRepositories gasstockRepositories,
             IMapper<ResponseMessage, ResponseBase> serviceResponseErrorMapper,
-            IMapper<CustomerRequestWrapper, CustomerSaveRequest> CustomerSaveRequestMapper,
+            IMapper<GasStockRequestWrapper, GasStockSaveRequest> gasstockSaveRequestMapper,
             IMapper<Object, ResponseBase> serviceResponseMapper
             )
         {
             _logger = logger;
-            _customerRepository = customerRepositories;
+            _gasstockRepository = gasstockRepositories;
             _serviceResponseErrorMapper = serviceResponseErrorMapper;
-            _customerSaveRequestMapper = CustomerSaveRequestMapper;
+            _gasstockSaveRequestMapper = gasstockSaveRequestMapper;
             _serviceResponseMapper = serviceResponseMapper;
         }
 
-        //Add customer
-        public async Task<ResponseBase> AddCustomerAsync(CustomerRequest request)
+        //Add 
+        public async Task<ResponseBase> AddGasStockAsync(GasStockRequest request)
         {
             try
             {
-                var CustomerSaveRequest = _customerSaveRequestMapper.Map(new CustomerRequestWrapper { Request = request });
+                var GasStockSaveRequest = _gasstockSaveRequestMapper.Map(new GasStockRequestWrapper { Request = request });
 
-                var userSaveResponse = await _customerRepository.SaveCustomerAsync(CustomerSaveRequest);
+                var userSaveResponse = await _gasstockRepository.SaveGaasStockAsync(GasStockSaveRequest);
 
                 return _serviceResponseMapper.Map(userSaveResponse);
             }
@@ -70,17 +73,17 @@ namespace gasbygas.lb.business.Manager
             }
         }
 
-        //Update Customer
-        public async Task<ResponseBase> UpdateCustomerAsync(CustomerRequest request)
+        //Update 
+        public async Task<ResponseBase> UpdateGasStockAsync(GasStockRequest request)
         {
             try
             {
 
-                var CustomerUpdateRequest = _customerSaveRequestMapper.Map(new CustomerRequestWrapper { Request = request });
+                var GasStockUpdateRequest = _gasstockSaveRequestMapper.Map(new GasStockRequestWrapper { Request = request });
 
-                var CustomerResponse = await _customerRepository.UpdateCustomerAsync(CustomerUpdateRequest);
+                var GasStockResponse = await _gasstockRepository.UpdateGasStockAsync(GasStockUpdateRequest);
 
-                return _serviceResponseMapper.Map(CustomerResponse);
+                return _serviceResponseMapper.Map(GasStockResponse);
             }
             catch (Exception ex)
             {
@@ -90,12 +93,12 @@ namespace gasbygas.lb.business.Manager
         }
 
         //List
-        public async Task<ResponseBase> GetAllCustomerAsync()
+        public async Task<ResponseBase> GetAllGasStockAsync()
         {
             try
             {
-                var CustomerResponse = await _customerRepository.GetAllCutomerAsync();
-                return _serviceResponseMapper.Map(CustomerResponse);
+                var GasStockResponse = await _gasstockRepository.GetAllGasStockAsync();
+                return _serviceResponseMapper.Map(GasStockResponse);
             }
             catch (Exception ex)
             {
@@ -105,12 +108,27 @@ namespace gasbygas.lb.business.Manager
         }
 
         //View
-        public async Task<ResponseBase> ViewCustomerAsync(CustomerRequest request)
+        public async Task<ResponseBase> ViewGasStockAsync(GasStockRequest request)
         {
             try
             {
-                var CustomerDetail = await _customerRepository.GetCustomerDetailAsync(request.Attributes);
-                return _serviceResponseMapper.Map(CustomerDetail);
+                var GasStockDetail = await _gasstockRepository.GetGasStockDetailAsync(request.Attributes);
+                return _serviceResponseMapper.Map(GasStockDetail);
+            }
+            catch (Exception ex) 
+            {
+                _logger.LogError(ex.ToString());
+                throw;
+            }
+        }
+
+        //Delete
+        public async Task<ResponseBase> DeleteGasStockAsync(GasStockRequest userrequest)
+        {
+            try
+            {
+                var result = await _gasstockRepository.DeleteGasStockAsync(userrequest.Attributes);
+                return _serviceResponseMapper.Map(result);
             }
             catch (Exception ex)
             {
@@ -119,21 +137,5 @@ namespace gasbygas.lb.business.Manager
             }
         }
 
-        //Delete
-        public async Task<ResponseBase> DeleteCustomerAsync(CustomerRequest userequest)
-        {
-            try
-            {
-                var result = await _customerRepository.DeleteCustomerAsync(userequest.Attributes);
-                return _serviceResponseMapper.Map(result);
-            }
-            catch (Exception ex) 
-            { 
-                _logger.LogError(ex.ToString());
-                throw;
-            }
-        }
-
     }
-
 }

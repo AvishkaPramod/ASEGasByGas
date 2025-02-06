@@ -5,31 +5,31 @@ using System.Collections.Generic;
 
 namespace gasbygas.lb.dbcontex.tables.Models
 {
-    /// <summary>
-    /// All End Customer Details
-    /// </summary>
-    public partial class customer
+    public partial class user
     {
-        public customer()
+        public user()
         {
             certificatevalidations = new HashSet<certificatevalidation>();
+            gasstocks = new HashSet<gasstock>();
         }
 
-        public int CustomerId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string NIC { get; set; }
-        public string Address { get; set; }
-        public string ContactNumber { get; set; }
-        public string Email { get; set; }
-        public string CustomerType { get; set; }
-        public string RegistrationDate { get; set; }
-        public string Status { get; set; }
+        public int UserID { get; set; }
+        public int OutletID { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Address { get; set; }
+        public string Email { get; set; }
+        public string Status { get; set; }
+        public string UserRole { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public DateTime? LastLoginDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
+        public string CreatedBy { get; set; }
         public string UpdatedBy { get; set; }
 
         public virtual ICollection<certificatevalidation> certificatevalidations { get; set; }
+        public virtual ICollection<gasstock> gasstocks { get; set; }
     }
 }

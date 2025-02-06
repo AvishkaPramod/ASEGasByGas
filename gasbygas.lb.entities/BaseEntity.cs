@@ -27,5 +27,7 @@
         /// The updated date.
         /// </value>
         public DateTime? UpdatedDate { get; set; }
+
+        public DateTime? LastLoginDate {  get; set; }
     }
 }

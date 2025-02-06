@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
 using gasbygas.lb.dbcontex.tables.Models;
+using gasbygas.lb.entities.Cetificatevalidaton;
 using gasbygas.lb.entities.Customer;
+using gasbygas.lb.entities.GasStock;
+using gasbygas.lb.entities.User;
 using gasbygas.lb.shared.Contracts;
 using System;
 using System.Collections.Generic;
@@ -44,10 +47,25 @@ namespace gasbygas.lb.data.Mappers
         {
             _config = new MapperConfiguration(cfg =>
             {
+                //Customer
                 cfg.CreateMap<customer, CustomerSaveRequest>().ReverseMap();
                 cfg.CreateMap<customer, CustomerResponse>().ReverseMap();
+
+                //GasStock
+                cfg.CreateMap<gasstock, GasStockSaveRequest>().ReverseMap();
+                cfg.CreateMap<gasstock, GasStockResponse>().ReverseMap();
+
+                //User
+                cfg.CreateMap<user, UserSaveRequest>().ReverseMap();
+                cfg.CreateMap<user, UserResponse>().ReverseMap();
+
+                //Certificatevalidatoin
+                cfg.CreateMap<certificatevalidation, CertificatevalidationSaveRequest>().ReverseMap();
+                cfg.CreateMap<certificatevalidation, CertificatevalidationResponse>().ReverseMap();
+                
             });
 
+            
         }
         /// <summary>
         /// Creates this instance.
