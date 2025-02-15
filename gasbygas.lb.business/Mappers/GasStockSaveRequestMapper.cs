@@ -27,7 +27,8 @@ namespace gasbygas.lb.business.Mappers
                 StockQuantity = input.Request.Attributes.StockQuantity,
                 StockStatus = input.Request.Attributes.StockStatus,
                 RecoveredemptyQTY = input.Request.Attributes.RecoveredemptyQTY,
-                UserID = input.Request.Attributes.UserID
+                UserID = input.Request.Attributes.UserID,
+                
             };
         }
 

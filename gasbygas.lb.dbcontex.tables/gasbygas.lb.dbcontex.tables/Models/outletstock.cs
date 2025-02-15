@@ -7,6 +7,11 @@ namespace gasbygas.lb.dbcontex.tables.Models
 {
     public partial class outletstock
     {
+        public outletstock()
+        {
+            deliveries = new HashSet<delivery>();
+        }
+
         public int OutletStockID { get; set; }
         public string GasType { get; set; }
         public int? EmptyGaSQTY { get; set; }
@@ -14,5 +19,9 @@ namespace gasbygas.lb.dbcontex.tables.Models
         public int? ReceivingQTY { get; set; }
         public DateTime? ReceivingDate { get; set; }
         public int? EmptyReturnQTY { get; set; }
+        public int? OutletID { get; set; }
+
+        public virtual outlet Outlet { get; set; }
+        public virtual ICollection<delivery> deliveries { get; set; }
     }
 }

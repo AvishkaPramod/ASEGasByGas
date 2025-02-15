@@ -8,6 +8,7 @@ namespace gasbygas.lb.entities.GasStock
 {
     public class GasStockSaveRequest: BaseEntity
     {
+        
         public int StockID { get; set; }
         public string GasType { get; set; }
         public int DistributedQTY { get; set; }

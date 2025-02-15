@@ -61,7 +61,8 @@ namespace gasbygas.lb.business.Manager
         {
             try
             {
-                var CertificateValidationSaveRequest = _certificatevalidationSaveRequestMapper.Map(new CertificatevalidationRequestWrapper { Request = request });
+                var CertificateValidationSaveRequest = _certificatevalidationSaveRequestMapper.
+                    Map(new CertificatevalidationRequestWrapper { Request = request });
 
                 var userSaveResponse = await _certificatevalidationRepository.SaveCertificatevalidationAsync(CertificateValidationSaveRequest);
 
@@ -80,9 +81,11 @@ namespace gasbygas.lb.business.Manager
             try
             {
 
-                var CertificateValidationUpdateRequest = _certificatevalidationSaveRequestMapper.Map(new CertificatevalidationRequestWrapper { Request = request });
+                var CertificateValidationUpdateRequest = _certificatevalidationSaveRequestMapper.
+                    Map(new CertificatevalidationRequestWrapper { Request = request });
 
-                var CertificateValidationUpdateResponse = await _certificatevalidationRepository.UpdateCertificatevalidationAsync(CertificateValidationUpdateRequest);
+                var CertificateValidationUpdateResponse = await _certificatevalidationRepository.
+                    UpdateCertificatevalidationAsync(CertificateValidationUpdateRequest);
 
                 return _serviceResponseMapper.Map(CertificateValidationUpdateResponse);
             }

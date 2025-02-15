@@ -23,11 +23,39 @@
          "ObjectType": 0
       },
       {
+         "Name": "delivery",
+         "ObjectType": 0
+      },
+      {
+         "Name": "gasrequest",
+         "ObjectType": 0
+      },
+      {
          "Name": "gasstock",
          "ObjectType": 0
       },
       {
+         "Name": "notification",
+         "ObjectType": 0
+      },
+      {
+         "Name": "outlet",
+         "ObjectType": 0
+      },
+      {
          "Name": "outletstock",
+         "ObjectType": 0
+      },
+      {
+         "Name": "payment",
+         "ObjectType": 0
+      },
+      {
+         "Name": "relocated",
+         "ObjectType": 0
+      },
+      {
+         "Name": "token",
          "ObjectType": 0
       },
       {

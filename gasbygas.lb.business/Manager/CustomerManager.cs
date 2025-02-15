@@ -21,7 +21,7 @@ namespace gasbygas.lb.business.Manager
         private readonly ILogger<CustomerManager> _logger;
 
         /// <summary>
-        /// Banks repository
+        /// repository
         /// </summary>
         private readonly ICustomerRepositories _customerRepository;
 
@@ -31,7 +31,7 @@ namespace gasbygas.lb.business.Manager
         private readonly IMapper<ResponseMessage, ResponseBase> _serviceResponseErrorMapper;
 
         /// <summary>
-        /// The Banks save mapper
+        /// The  save mapper
         /// </summary>
         private readonly IMapper<CustomerRequestWrapper, CustomerSaveRequest> _customerSaveRequestMapper;
 

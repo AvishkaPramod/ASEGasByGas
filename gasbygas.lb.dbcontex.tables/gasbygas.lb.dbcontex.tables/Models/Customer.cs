@@ -13,6 +13,8 @@ namespace gasbygas.lb.dbcontex.tables.Models
         public customer()
         {
             certificatevalidations = new HashSet<certificatevalidation>();
+            gasrequests = new HashSet<gasrequest>();
+            notifications = new HashSet<notification>();
         }
 
         public int CustomerId { get; set; }
@@ -31,5 +33,7 @@ namespace gasbygas.lb.dbcontex.tables.Models
         public string UpdatedBy { get; set; }
 
         public virtual ICollection<certificatevalidation> certificatevalidations { get; set; }
+        public virtual ICollection<gasrequest> gasrequests { get; set; }
+        public virtual ICollection<notification> notifications { get; set; }
     }
 }

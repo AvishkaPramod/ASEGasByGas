@@ -2,7 +2,14 @@
 using gasbygas.lb.dbcontex.tables.Models;
 using gasbygas.lb.entities.Cetificatevalidaton;
 using gasbygas.lb.entities.Customer;
+using gasbygas.lb.entities.Delivery;
+using gasbygas.lb.entities.GasRequest;
 using gasbygas.lb.entities.GasStock;
+using gasbygas.lb.entities.Notification;
+using gasbygas.lb.entities.Outlet;
+using gasbygas.lb.entities.OutletStock;
+using gasbygas.lb.entities.Payment;
+using gasbygas.lb.entities.Relocated;
 using gasbygas.lb.entities.User;
 using gasbygas.lb.shared.Contracts;
 using System;
@@ -62,7 +69,40 @@ namespace gasbygas.lb.data.Mappers
                 //Certificatevalidatoin
                 cfg.CreateMap<certificatevalidation, CertificatevalidationSaveRequest>().ReverseMap();
                 cfg.CreateMap<certificatevalidation, CertificatevalidationResponse>().ReverseMap();
-                
+
+                //OutletStock
+                cfg.CreateMap<outletstock, OutletStockSaveRequest>().ReverseMap();
+                cfg.CreateMap<outletstock, OutletStockResponse>().ReverseMap();
+
+                //Outlet
+                cfg.CreateMap<outlet, OutletSaveRequest>().ReverseMap();
+                cfg.CreateMap<outlet, OutletResponse>().ReverseMap();
+
+                //Delivery
+                cfg.CreateMap<delivery, DeliverySaveRequest>().ReverseMap();
+                cfg.CreateMap<delivery, DeliveryResponse>().ReverseMap();
+
+                //GasRequest
+                cfg.CreateMap<gasrequest, GasRequestSaveRequest>().ReverseMap();
+                cfg.CreateMap<gasrequest, GasRequestResponse>().ReverseMap();
+
+                //Token
+                cfg.CreateMap<token, Token>().ReverseMap();
+                 
+
+                //Payment
+                cfg.CreateMap<payment, PaymentSaveRequest>().ReverseMap();
+                cfg.CreateMap<payment, PaymentResponse>().ReverseMap();
+
+                //Notification
+                cfg.CreateMap<notification, NotificationSaveRequest>().ReverseMap();
+                cfg.CreateMap<notification, NotificationResponse>().ReverseMap();
+
+                //Relocated
+                cfg.CreateMap<relocated, RelocatedSaveRequest>().ReverseMap();
+                cfg.CreateMap<relocated, RelocatedResponse>().ReverseMap();
+
+
             });
 
             

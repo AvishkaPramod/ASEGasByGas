@@ -20,8 +20,15 @@ namespace gasbygas.lb.dbcontex.tables.Models
 
         public virtual DbSet<certificatevalidation> certificatevalidations { get; set; }
         public virtual DbSet<customer> customers { get; set; }
+        public virtual DbSet<delivery> deliveries { get; set; }
+        public virtual DbSet<gasrequest> gasrequests { get; set; }
         public virtual DbSet<gasstock> gasstocks { get; set; }
+        public virtual DbSet<notification> notifications { get; set; }
+        public virtual DbSet<outlet> outlets { get; set; }
         public virtual DbSet<outletstock> outletstocks { get; set; }
+        public virtual DbSet<payment> payments { get; set; }
+        public virtual DbSet<relocated> relocateds { get; set; }
+        public virtual DbSet<token> tokens { get; set; }
         public virtual DbSet<user> users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -92,6 +99,100 @@ namespace gasbygas.lb.dbcontex.tables.Models
                 entity.Property(e => e.UserName).HasMaxLength(45);
             });
 
+            modelBuilder.Entity<delivery>(entity =>
+            {
+                entity.ToTable("delivery");
+
+                entity.HasIndex(e => e.OutletStockID, "FK_Delivery_OutletStock");
+
+                entity.HasIndex(e => e.OutletID, "OutletID");
+
+                entity.HasIndex(e => e.StockID, "StockID");
+
+                entity.HasIndex(e => e.UserID, "UserID");
+
+                entity.Property(e => e.ArrivalAtGasStock).HasColumnType("datetime");
+
+                entity.Property(e => e.ArrivalAtOutlet).HasColumnType("datetime");
+
+                entity.Property(e => e.DeliveryStatus).HasMaxLength(50);
+
+                entity.Property(e => e.EmptyCylinderDeliveryDate).HasColumnType("datetime");
+
+                entity.Property(e => e.GasStockDeliveryDate).HasColumnType("datetime");
+
+                entity.Property(e => e.GasType).HasMaxLength(50);
+
+                entity.Property(e => e.OutletRecipient).HasMaxLength(50);
+
+                entity.Property(e => e.ReturnStatus).HasMaxLength(50);
+
+                entity.Property(e => e.StockRecipient).HasMaxLength(50);
+
+                entity.HasOne(d => d.OutletStock)
+                    .WithMany(p => p.deliveries)
+                    .HasForeignKey(d => d.OutletStockID)
+                    .HasConstraintName("FK_Delivery_OutletStock");
+
+                entity.HasOne(d => d.Stock)
+                    .WithMany(p => p.deliveries)
+                    .HasForeignKey(d => d.StockID)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("delivery_ibfk_1");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.deliveries)
+                    .HasForeignKey(d => d.UserID)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("delivery_ibfk_3");
+            });
+
+            modelBuilder.Entity<gasrequest>(entity =>
+            {
+                entity.HasKey(e => e.RequestID)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("gasrequest");
+
+                entity.HasIndex(e => e.CustomerID, "CustomerID");
+
+                entity.HasIndex(e => e.OutletID, "OutletID");
+
+                entity.HasIndex(e => e.UserID, "UserID");
+
+                entity.Property(e => e.GasNeedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.GasType).HasMaxLength(50);
+
+                entity.Property(e => e.RequestCategory)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.RequestDate).HasColumnType("datetime");
+
+                entity.Property(e => e.RequestStatus).HasMaxLength(50);
+
+                entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Customer)
+                    .WithMany(p => p.gasrequests)
+                    .HasForeignKey(d => d.CustomerID)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("gasrequest_ibfk_1");
+
+                entity.HasOne(d => d.Outlet)
+                    .WithMany(p => p.gasrequests)
+                    .HasForeignKey(d => d.OutletID)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("gasrequest_ibfk_3");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.gasrequests)
+                    .HasForeignKey(d => d.UserID)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("gasrequest_ibfk_2");
+            });
+
             modelBuilder.Entity<gasstock>(entity =>
             {
                 entity.HasKey(e => e.StockID)
@@ -113,13 +214,190 @@ namespace gasbygas.lb.dbcontex.tables.Models
                     .HasConstraintName("FK_gasStock_user");
             });
 
+            modelBuilder.Entity<notification>(entity =>
+            {
+                entity.ToTable("notification");
+
+                entity.HasIndex(e => e.CustomerID, "CustomerID");
+
+                entity.HasIndex(e => e.TokenID, "TokenID");
+
+                entity.HasIndex(e => e.UserID, "UserID");
+
+                entity.Property(e => e.DateSent).HasColumnType("datetime");
+
+                entity.Property(e => e.Message).HasMaxLength(250);
+
+                entity.Property(e => e.NotificationStatus).HasMaxLength(50);
+
+                entity.Property(e => e.NotificationType).HasMaxLength(50);
+
+                entity.Property(e => e.Reference).HasMaxLength(100);
+
+                entity.HasOne(d => d.Customer)
+                    .WithMany(p => p.notifications)
+                    .HasForeignKey(d => d.CustomerID)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("notification_ibfk_3");
+
+                entity.HasOne(d => d.Token)
+                    .WithMany(p => p.notifications)
+                    .HasForeignKey(d => d.TokenID)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("notification_ibfk_1");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.notifications)
+                    .HasForeignKey(d => d.UserID)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("notification_ibfk_2");
+            });
+
+            modelBuilder.Entity<outlet>(entity =>
+            {
+                entity.ToTable("outlet");
+
+                entity.Property(e => e.ContactDetails).HasMaxLength(50);
+
+                entity.Property(e => e.District).HasMaxLength(50);
+
+                entity.Property(e => e.Location).HasMaxLength(50);
+
+                entity.Property(e => e.OutletName).HasMaxLength(50);
+            });
+
             modelBuilder.Entity<outletstock>(entity =>
             {
                 entity.ToTable("outletstock");
 
+                entity.HasIndex(e => e.OutletID, "OutletID_idx");
+
                 entity.Property(e => e.GasType).HasMaxLength(50);
 
                 entity.Property(e => e.ReceivingDate).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Outlet)
+                    .WithMany(p => p.outletstocks)
+                    .HasForeignKey(d => d.OutletID)
+                    .HasConstraintName("OutletID");
+            });
+
+            modelBuilder.Entity<payment>(entity =>
+            {
+                entity.ToTable("payment");
+
+                entity.HasIndex(e => e.TokenID, "payment_ibfk_1_idx");
+
+                entity.Property(e => e.AccountNumber).HasMaxLength(50);
+
+                entity.Property(e => e.Bank).HasMaxLength(50);
+
+                entity.Property(e => e.Branch).HasMaxLength(50);
+
+                entity.Property(e => e.PaymentType).HasMaxLength(50);
+
+                entity.Property(e => e.Price).HasPrecision(10, 2);
+
+                entity.Property(e => e.Status).HasMaxLength(50);
+
+                entity.HasOne(d => d.Token)
+                    .WithMany(p => p.payments)
+                    .HasForeignKey(d => d.TokenID)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("payment_ibfk_1");
+            });
+
+            modelBuilder.Entity<relocated>(entity =>
+            {
+                entity.HasKey(e => e.RelocateID)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("relocated");
+
+                entity.HasIndex(e => e.NewRequestID, "NewRequestID");
+
+                entity.HasIndex(e => e.NewTokenID, "NewTokenID");
+
+                entity.HasIndex(e => e.OldRequestID, "OldRequestID");
+
+                entity.HasIndex(e => e.OldTokenID, "OldTokenID");
+
+                entity.Property(e => e.RelocationDate).HasColumnType("datetime");
+
+                entity.Property(e => e.RelocationStatus)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.HasOne(d => d.NewRequest)
+                    .WithMany(p => p.relocatedNewRequests)
+                    .HasForeignKey(d => d.NewRequestID)
+                    .HasConstraintName("relocated_ibfk_4");
+
+                entity.HasOne(d => d.NewToken)
+                    .WithMany(p => p.relocatedNewTokens)
+                    .HasForeignKey(d => d.NewTokenID)
+                    .HasConstraintName("relocated_ibfk_2");
+
+                entity.HasOne(d => d.OldRequest)
+                    .WithMany(p => p.relocatedOldRequests)
+                    .HasForeignKey(d => d.OldRequestID)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("relocated_ibfk_3");
+
+                entity.HasOne(d => d.OldToken)
+                    .WithMany(p => p.relocatedOldTokens)
+                    .HasForeignKey(d => d.OldTokenID)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("relocated_ibfk_1");
+            });
+
+            modelBuilder.Entity<token>(entity =>
+            {
+                entity.ToTable("token");
+
+                entity.HasIndex(e => e.ParentTokenID, "ParentTokenID")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.RequestID, "RequestID");
+
+                entity.HasIndex(e => e.TokenNumber, "TokenNumber")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.UserID, "UserID");
+
+                entity.Property(e => e.EmptyGasStatus).HasMaxLength(50);
+
+                entity.Property(e => e.GasType)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.PickupDate).HasColumnType("datetime");
+
+                entity.Property(e => e.PurchaseEndDate).HasColumnType("datetime");
+
+                entity.Property(e => e.PurchaseStartDate).HasColumnType("datetime");
+
+                entity.Property(e => e.ReallocatedBy).HasMaxLength(50);
+
+                entity.Property(e => e.TokenNumber)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.TokenReturnDate).HasColumnType("datetime");
+
+                entity.Property(e => e.TokenStatus).HasMaxLength(50);
+
+                entity.HasOne(d => d.Request)
+                    .WithMany(p => p.tokens)
+                    .HasForeignKey(d => d.RequestID)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("token_ibfk_1");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.tokens)
+                    .HasForeignKey(d => d.UserID)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("token_ibfk_2");
             });
 
             modelBuilder.Entity<user>(entity =>
@@ -157,6 +435,11 @@ namespace gasbygas.lb.dbcontex.tables.Models
                 entity.Property(e => e.UserName).HasMaxLength(50);
 
                 entity.Property(e => e.UserRole).HasMaxLength(50);
+
+                entity.HasOne(d => d.Outlet)
+                    .WithMany(p => p.users)
+                    .HasForeignKey(d => d.OutletID)
+                    .HasConstraintName("FK_user_Outlet");
             });
 
             OnModelCreatingPartial(modelBuilder);

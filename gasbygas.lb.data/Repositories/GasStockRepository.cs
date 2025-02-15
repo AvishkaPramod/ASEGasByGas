@@ -25,7 +25,8 @@ namespace gasbygas.lb.data.Repositories
         private readonly ILogger<GasStockRepository> _logger;
 
         //Constructor
-        public GasStockRepository(gasbygasContext gasBygasContext, IEntityMapper entityMapper, ILogger<GasStockRepository> logger)
+        public GasStockRepository(gasbygasContext gasBygasContext, IEntityMapper entityMapper, 
+            ILogger<GasStockRepository> logger)
         {
             _gasBygasContext = gasBygasContext;
             _entityMapper = entityMapper;
@@ -93,7 +94,8 @@ namespace gasbygas.lb.data.Repositories
                         StockQuantity = u.StockQuantity,
                         StockStatus = u.StockStatus,
                         RecoveredemptyQTY = u.RecoveredemptyQTY,
-                        UserID = u.UserID
+                        UserID = u.UserID,
+
                     }).ToListAsync();
 
                 return GasStockS;

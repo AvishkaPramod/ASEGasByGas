@@ -7,6 +7,11 @@ namespace gasbygas.lb.dbcontex.tables.Models
 {
     public partial class gasstock
     {
+        public gasstock()
+        {
+            deliveries = new HashSet<delivery>();
+        }
+
         public int StockID { get; set; }
         public string GasType { get; set; }
         public int DistributedQTY { get; set; }
@@ -18,5 +23,6 @@ namespace gasbygas.lb.dbcontex.tables.Models
         public int? UserID { get; set; }
 
         public virtual user User { get; set; }
+        public virtual ICollection<delivery> deliveries { get; set; }
     }
 }

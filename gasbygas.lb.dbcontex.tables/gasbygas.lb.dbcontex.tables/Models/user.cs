@@ -10,11 +10,15 @@ namespace gasbygas.lb.dbcontex.tables.Models
         public user()
         {
             certificatevalidations = new HashSet<certificatevalidation>();
+            deliveries = new HashSet<delivery>();
+            gasrequests = new HashSet<gasrequest>();
             gasstocks = new HashSet<gasstock>();
+            notifications = new HashSet<notification>();
+            tokens = new HashSet<token>();
         }
 
         public int UserID { get; set; }
-        public int OutletID { get; set; }
+        public int? OutletID { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
         public string FirstName { get; set; }
@@ -29,7 +33,12 @@ namespace gasbygas.lb.dbcontex.tables.Models
         public string CreatedBy { get; set; }
         public string UpdatedBy { get; set; }
 
+        public virtual outlet Outlet { get; set; }
         public virtual ICollection<certificatevalidation> certificatevalidations { get; set; }
+        public virtual ICollection<delivery> deliveries { get; set; }
+        public virtual ICollection<gasrequest> gasrequests { get; set; }
         public virtual ICollection<gasstock> gasstocks { get; set; }
+        public virtual ICollection<notification> notifications { get; set; }
+        public virtual ICollection<token> tokens { get; set; }
     }
 }
