@@ -15,8 +15,6 @@ namespace gasbygas.lb.dbcontex.tables.Models
         public DateTime RelocationDate { get; set; }
         public string RelocationStatus { get; set; }
 
-        public virtual gasrequest NewRequest { get; set; }
-        public virtual token NewToken { get; set; }
         public virtual gasrequest OldRequest { get; set; }
         public virtual token OldToken { get; set; }
     }

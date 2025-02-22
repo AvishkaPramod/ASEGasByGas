@@ -42,27 +42,7 @@ namespace gasbygas.lb.data.Repositories
                 var GasRequestSaveObj = _gasBygasContext.gasrequests.Add(GasRequestDetails).Entity;
                 await _gasBygasContext.SaveChangesAsync();
 
-                // If status is "Accept", generate a token inside this method
-                if (GasRequestSaveObj.RequestStatus == "accept")
-                {
-                    var token = new token
-                    {
-                        RequestID = GasRequestSaveObj.RequestID,
-                        UserID = GasRequestSaveObj.UserID,
-                        TokenNumber = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10), // Generate random token
-                        GasQTY = GasRequestSaveObj.GasQTY,
-                        GasType = GasRequestSaveObj.GasType,
-                        UnitPrice = 3000.0, // Fetch actual price if needed
-                        Total = GasRequestSaveObj.GasQTY * 3000.0,
-                        PurchaseStartDate = DateTime.UtcNow,
-                        PurchaseEndDate = DateTime.UtcNow.AddDays(14),
-                        TokenReturnDate = DateTime.UtcNow.AddDays(16),
-                        TokenStatus = "Active"
-                    };
-
-                    _gasBygasContext.tokens.Add(token);
-                    await _gasBygasContext.SaveChangesAsync();
-                }
+                
 
 
 

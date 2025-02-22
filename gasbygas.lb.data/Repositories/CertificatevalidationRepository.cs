@@ -58,11 +58,7 @@ namespace gasbygas.lb.data.Repositories
                 var Certificatevalidation = await _gasBygasContext.certificatevalidations.FirstOrDefaultAsync(i => i.CertificateValidationID == request.CertificateValidationID);
                 Certificatevalidation.UserID = request.UserID;
                 Certificatevalidation.CustomerID = request.CustomerID;
-                // Check if a new file is uploaded
-                if (request.CertificateFile != null && request.CertificateFile.Length > 0)
-                {
-                    Certificatevalidation.CertificateFile = request.CertificateFile;
-                }
+                Certificatevalidation.CertificateFileNumber = request.CertificateFileNumber;
                 Certificatevalidation.CertificateStatus = request.CertificateStatus;
                 Certificatevalidation.ValidationStatus = request.ValidationStatus;
                 Certificatevalidation.ValidationDate = request.ValidationDate;
@@ -90,7 +86,7 @@ namespace gasbygas.lb.data.Repositories
                         CertificateValidationID = u.CertificateValidationID,
                         UserID = u.UserID,
                         CustomerID = u.CustomerID,
-                        CertificateFile = u.CertificateFile,
+                        CertificateFileNumber = u.CertificateFileNumber,
                         CertificateStatus = u.CertificateStatus,
                         ValidationStatus = u.ValidationStatus,
                         ValidationDate = u.ValidationDate
@@ -116,7 +112,7 @@ namespace gasbygas.lb.data.Repositories
                         CertificateValidationID = u.CertificateValidationID,
                         UserID = u.UserID,
                         CustomerID = u.CustomerID,
-                        CertificateFile = u.CertificateFile,
+                        CertificateFileNumber = u.CertificateFileNumber,
                         CertificateStatus = u.CertificateStatus,
                         ValidationStatus = u.ValidationStatus,
                         ValidationDate = u.ValidationDate

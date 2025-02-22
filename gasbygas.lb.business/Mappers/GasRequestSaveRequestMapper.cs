@@ -30,8 +30,8 @@ namespace gasbygas.lb.business.Mappers
                 GasNeedDate = DateTime.Now,
                 RequestDate = DateTime.Now,
                 RequestStatus = input.Request.Attributes.RequestStatus,
-                UpdatedDate = DateTime.Now,
-                Tokens = input.Request.Attributes.Tokens.Select(t => new Token
+                UpdatedDate = DateTime.Now
+                /*Tokens = input.Request.Attributes.Tokens.Select(t => new Token
                 {
                     TokenID = t.TokenID,
                     RequestID = t.RequestID,
@@ -51,7 +51,7 @@ namespace gasbygas.lb.business.Mappers
                     EmptyGasStatus = t.EmptyGasStatus,
                     ReallocatedBy = t.ReallocatedBy
                     
-                }).ToList()
+                }).ToList()*/
                 
             };
         }

@@ -18,8 +18,10 @@ namespace gasbygas.lb.entities.GasRequest
         public DateTime GasNeedDate { get; set; }
         public DateTime? RequestDate { get; set; }
         public string RequestStatus { get; set; }
+        public DateTime? UpdatedDate { get; set; }
 
-        public List<Token> Tokens { get; set; } = new List<Token>();
+
+      //  public List<Token> Tokens { get; set; } = new List<Token>();
 
 
     }

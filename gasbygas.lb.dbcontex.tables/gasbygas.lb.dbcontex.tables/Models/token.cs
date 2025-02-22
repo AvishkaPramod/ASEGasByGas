@@ -11,15 +11,13 @@ namespace gasbygas.lb.dbcontex.tables.Models
         {
             notifications = new HashSet<notification>();
             payments = new HashSet<payment>();
-            relocatedNewTokens = new HashSet<relocated>();
-            relocatedOldTokens = new HashSet<relocated>();
+            relocateds = new HashSet<relocated>();
         }
 
         public int TokenID { get; set; }
         public int RequestID { get; set; }
         public int? ParentTokenID { get; set; }
         public int UserID { get; set; }
-        public string TokenNumber { get; set; }
         public int GasQTY { get; set; }
         public string GasType { get; set; }
         public double UnitPrice { get; set; }
@@ -32,12 +30,12 @@ namespace gasbygas.lb.dbcontex.tables.Models
         public int? ReturnEmptyQTY { get; set; }
         public string EmptyGasStatus { get; set; }
         public string ReallocatedBy { get; set; }
+        public string TokenNumber { get; set; }
 
         public virtual gasrequest Request { get; set; }
         public virtual user User { get; set; }
         public virtual ICollection<notification> notifications { get; set; }
         public virtual ICollection<payment> payments { get; set; }
-        public virtual ICollection<relocated> relocatedNewTokens { get; set; }
-        public virtual ICollection<relocated> relocatedOldTokens { get; set; }
+        public virtual ICollection<relocated> relocateds { get; set; }
     }
 }

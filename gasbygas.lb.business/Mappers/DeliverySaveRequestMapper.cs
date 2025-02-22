@@ -21,7 +21,7 @@ namespace gasbygas.lb.business.Mappers
             {
                 DeliveryID = input.Request.Attributes.DeliveryID,
                 StockID = input.Request.Attributes.StockID,
-                OutletID = input.Request.Attributes.OutletID,
+               // OutletID = input.Request.Attributes.OutletID,
                 UserID = input.Request.Attributes.UserID,
                 GasType = input.Request.Attributes.GasType,
                 FullCylinderCount = input.Request.Attributes.FullCylinderCount,

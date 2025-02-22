@@ -24,7 +24,7 @@ namespace gasbygas.lb.business.Mappers
                 CertificateValidationID = input.Request.Attributes.CertificateValidationID,
                 UserID = input.Request.Attributes.UserID,
                 CustomerID = input.Request.Attributes.CustomerID,
-                CertificateFile = input.Request.Attributes.CertificateFile,
+                CertificateFileNumber = input.Request.Attributes.CertificateFileNumber,
                 CertificateStatus = input.Request.Attributes.CertificateStatus,
                 ValidationStatus = input.Request.Attributes.ValidationStatus,
                 ValidationDate = input.Request.Attributes.ValidationDate

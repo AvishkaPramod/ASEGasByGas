@@ -9,7 +9,6 @@ namespace gasbygas.lb.dbcontex.tables.Models
     {
         public int DeliveryID { get; set; }
         public int StockID { get; set; }
-        public int OutletID { get; set; }
         public int UserID { get; set; }
         public string GasType { get; set; }
         public int? FullCylinderCount { get; set; }

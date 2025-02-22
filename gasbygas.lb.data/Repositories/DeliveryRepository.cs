@@ -57,7 +57,7 @@ namespace gasbygas.lb.data.Repositories
             {
                 var Delivery = await _gasBygasContext.deliveries.FirstOrDefaultAsync(i => i.DeliveryID == request.DeliveryID);
                 Delivery.StockID = request.StockID;
-                Delivery.OutletID = request.OutletID;
+                //Delivery.OutletID = request.OutletID;
                 Delivery.UserID = request.UserID;
                 Delivery.GasType = request.GasType;
                 Delivery.GasType = request.GasType;
@@ -96,7 +96,7 @@ namespace gasbygas.lb.data.Repositories
                 {
                     DeliveryID = u.DeliveryID,
                     StockID = u.StockID,
-                    OutletID = u.OutletID,
+                    //OutletID = u.OutletID,
                     UserID = u.UserID,
                     GasType = u.GasType,
                     FullCylinderCount = u.FullCylinderCount,
@@ -134,7 +134,7 @@ namespace gasbygas.lb.data.Repositories
                     {
                         DeliveryID = u.DeliveryID,
                         StockID = u.StockID,
-                        OutletID = u.OutletID,
+                        //OutletID = u.OutletID,
                         UserID = u.UserID,
                         GasType = u.GasType,
                         FullCylinderCount = u.FullCylinderCount,

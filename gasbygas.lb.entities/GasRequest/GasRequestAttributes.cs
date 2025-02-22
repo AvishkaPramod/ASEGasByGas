@@ -20,7 +20,8 @@ namespace gasbygas.lb.entities.GasRequest
         public string RequestStatus { get; set; }
         public DateTime? UpdatedDate { get; set; }
 
-        public List<Token> Tokens { get; set; } = new List<Token>();
+
+      //  public List<Token> Tokens { get; set; }  
 
     }
 
@@ -30,7 +31,6 @@ namespace gasbygas.lb.entities.GasRequest
         public int RequestID { get; set; }
         public int? ParentTokenID { get; set; }
         public int UserID { get; set; }
-        public string TokenNumber { get; set; }
         public int GasQTY { get; set; }
         public string GasType { get; set; }
         public double UnitPrice { get; set; }
@@ -43,6 +43,7 @@ namespace gasbygas.lb.entities.GasRequest
         public int? ReturnEmptyQTY { get; set; }
         public string EmptyGasStatus { get; set; }
         public string ReallocatedBy { get; set; }
+        public string TokenNumber { get; set; }
     }
     
 }

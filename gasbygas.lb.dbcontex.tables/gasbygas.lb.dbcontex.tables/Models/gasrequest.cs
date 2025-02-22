@@ -9,8 +9,7 @@ namespace gasbygas.lb.dbcontex.tables.Models
     {
         public gasrequest()
         {
-            relocatedNewRequests = new HashSet<relocated>();
-            relocatedOldRequests = new HashSet<relocated>();
+            relocateds = new HashSet<relocated>();
             tokens = new HashSet<token>();
         }
 
@@ -29,8 +28,7 @@ namespace gasbygas.lb.dbcontex.tables.Models
         public virtual customer Customer { get; set; }
         public virtual outlet Outlet { get; set; }
         public virtual user User { get; set; }
-        public virtual ICollection<relocated> relocatedNewRequests { get; set; }
-        public virtual ICollection<relocated> relocatedOldRequests { get; set; }
+        public virtual ICollection<relocated> relocateds { get; set; }
         public virtual ICollection<token> tokens { get; set; }
     }
 }

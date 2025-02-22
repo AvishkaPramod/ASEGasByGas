@@ -44,6 +44,8 @@ namespace gasbygas.lb.dbcontex.tables.Models
 
                 entity.HasIndex(e => e.UserID, "UserID");
 
+                entity.Property(e => e.CertificateFileNumber).HasMaxLength(50);
+
                 entity.Property(e => e.CertificateStatus).HasMaxLength(50);
 
                 entity.Property(e => e.ValidationDate).HasMaxLength(50);
@@ -103,9 +105,7 @@ namespace gasbygas.lb.dbcontex.tables.Models
             {
                 entity.ToTable("delivery");
 
-                entity.HasIndex(e => e.OutletStockID, "FK_Delivery_OutletStock");
-
-                entity.HasIndex(e => e.OutletID, "OutletID");
+                entity.HasIndex(e => e.OutletStockID, "FK_Delivery_OutletStock_idx");
 
                 entity.HasIndex(e => e.StockID, "StockID");
 
@@ -220,9 +220,9 @@ namespace gasbygas.lb.dbcontex.tables.Models
 
                 entity.HasIndex(e => e.CustomerID, "CustomerID");
 
-                entity.HasIndex(e => e.TokenID, "TokenID");
-
                 entity.HasIndex(e => e.UserID, "UserID");
+
+                entity.HasIndex(e => e.TokenID, "notification_ibfk_1_idx");
 
                 entity.Property(e => e.DateSent).HasColumnType("datetime");
 
@@ -314,13 +314,11 @@ namespace gasbygas.lb.dbcontex.tables.Models
 
                 entity.ToTable("relocated");
 
-                entity.HasIndex(e => e.NewRequestID, "NewRequestID");
-
-                entity.HasIndex(e => e.NewTokenID, "NewTokenID");
-
                 entity.HasIndex(e => e.OldRequestID, "OldRequestID");
 
-                entity.HasIndex(e => e.OldTokenID, "OldTokenID");
+                entity.HasIndex(e => e.OldTokenID, "relocated_ibfk_1_idx");
+
+                entity.HasIndex(e => e.NewTokenID, "relocated_ibfk_2_idx");
 
                 entity.Property(e => e.RelocationDate).HasColumnType("datetime");
 
@@ -328,24 +326,14 @@ namespace gasbygas.lb.dbcontex.tables.Models
                     .IsRequired()
                     .HasMaxLength(50);
 
-                entity.HasOne(d => d.NewRequest)
-                    .WithMany(p => p.relocatedNewRequests)
-                    .HasForeignKey(d => d.NewRequestID)
-                    .HasConstraintName("relocated_ibfk_4");
-
-                entity.HasOne(d => d.NewToken)
-                    .WithMany(p => p.relocatedNewTokens)
-                    .HasForeignKey(d => d.NewTokenID)
-                    .HasConstraintName("relocated_ibfk_2");
-
                 entity.HasOne(d => d.OldRequest)
-                    .WithMany(p => p.relocatedOldRequests)
+                    .WithMany(p => p.relocateds)
                     .HasForeignKey(d => d.OldRequestID)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("relocated_ibfk_3");
 
                 entity.HasOne(d => d.OldToken)
-                    .WithMany(p => p.relocatedOldTokens)
+                    .WithMany(p => p.relocateds)
                     .HasForeignKey(d => d.OldTokenID)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("relocated_ibfk_1");
@@ -355,12 +343,9 @@ namespace gasbygas.lb.dbcontex.tables.Models
             {
                 entity.ToTable("token");
 
-                entity.HasIndex(e => e.ParentTokenID, "ParentTokenID")
-                    .IsUnique();
-
                 entity.HasIndex(e => e.RequestID, "RequestID");
 
-                entity.HasIndex(e => e.TokenNumber, "TokenNumber")
+                entity.HasIndex(e => e.TokenNumber, "TokenNumber_UNIQUE")
                     .IsUnique();
 
                 entity.HasIndex(e => e.UserID, "UserID");
@@ -379,9 +364,7 @@ namespace gasbygas.lb.dbcontex.tables.Models
 
                 entity.Property(e => e.ReallocatedBy).HasMaxLength(50);
 
-                entity.Property(e => e.TokenNumber)
-                    .IsRequired()
-                    .HasMaxLength(50);
+                entity.Property(e => e.TokenNumber).HasMaxLength(250);
 
                 entity.Property(e => e.TokenReturnDate).HasColumnType("datetime");
 
