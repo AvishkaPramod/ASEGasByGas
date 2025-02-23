@@ -10,6 +10,7 @@ using gasbygas.lb.entities.Outlet;
 using gasbygas.lb.entities.OutletStock;
 using gasbygas.lb.entities.Payment;
 using gasbygas.lb.entities.Relocated;
+using gasbygas.lb.entities.Token;
 using gasbygas.lb.entities.User;
 using gasbygas.lb.shared.Contracts;
 using System;
@@ -88,6 +89,8 @@ namespace gasbygas.lb.data.Mappers
 
                 //Token
                 cfg.CreateMap<token, Token>().ReverseMap();
+                cfg.CreateMap<token, TokenSaveRequest>().ReverseMap();
+                cfg.CreateMap<token, TokenResponse>().ReverseMap();
                  
 
                 //Payment

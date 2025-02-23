@@ -18,6 +18,7 @@ using gasbygas.lb.entities.Outlet;
 using gasbygas.lb.entities.OutletStock;
 using gasbygas.lb.entities.Payment;
 using gasbygas.lb.entities.Relocated;
+using gasbygas.lb.entities.Token;
 using gasbygas.lb.entities.User;
 using gasbygas.lb.shared.Contracts;
 using gasbygas.lb.shared.Models;
@@ -77,6 +78,9 @@ namespace ASEGasByGas.Models
 
             //Relocated
             services.AddScoped<IRelocatedManager, RelocatedManager>();
+
+            //Token
+            services.AddScoped<ITokenManager, TokenManager>();
             #endregion
 
 
@@ -114,6 +118,9 @@ namespace ASEGasByGas.Models
 
             //Relocated
             services.AddScoped<IRelocatedRepositories, RelocatedRepository>();
+
+            //Token
+            services.AddScoped<ITokenRepositories, TokenRepository>();
             #endregion
 
 
@@ -155,6 +162,9 @@ namespace ASEGasByGas.Models
 
             //Relocated
             services.AddScoped<IMapper<RelocatedRequestWrapper, RelocatedSaveRequest>, RelocatedSaveRequestMapper>();
+
+            //Token
+            services.AddScoped<IMapper<TokenRequestWrapper, TokenSaveRequest>,  TokenSaveRequestMapper>();
             #endregion
 
 
